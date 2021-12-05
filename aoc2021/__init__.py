@@ -11,6 +11,9 @@ def lines(template="s"):
     List of parsed lines
     """
     fcts = {"s": str, "i": int, "f": float}
+    # Don't split the line if only one string requested
+    if template == "s":
+        return [line.rstrip() for line in fi.input()]
     l = [[fcts[t](x) for t, x in zip(template, line.rstrip().split())]
          for line in fi.input()]
     # If only one field per line, simplify the output
@@ -18,6 +21,6 @@ def lines(template="s"):
         l = [x[0] for x in l]
     # If only numerical data, return a numpy array
     if "s" not in template:
-        l = np.array(l)
+        return np.array(l)
     return l
 
