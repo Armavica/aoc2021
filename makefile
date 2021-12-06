@@ -12,5 +12,5 @@ today: $(TODAY)/input
 input: $(TODAY)/input
 	head $(TODAY)/input
 
-$(TODAY)/input:
+$(TODAY)/input: token
 	curl --silent --cookie session=$(TOKEN) https://adventofcode.com/$(YEAR)/day/$(TODAY_NO_0)/input -o $(TODAY)/input
