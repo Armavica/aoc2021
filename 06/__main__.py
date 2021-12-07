@@ -4,12 +4,9 @@ ls = [int(x) for x in next(fi.input()).split(',')]
 
 
 def step(ls):
-    new = ls[0]
-    nls = ls[1:]
-    nls += [0] * (9 - len(nls))
-    nls[6] += new
-    nls[8] += new
-    return nls
+    ls = ls + [0] * (9 - len(ls))
+    ls[7] += ls[0]
+    return ls[1:] + ls[:1]
 
 
 counter = [0] * 9
