@@ -7,22 +7,12 @@ def score(line):
     stack = []
     for c in line:
         if c in '([{<':
-            if not stack or stack[-1][0] != 'c':
-                stack.append([c, 1])
-            else:
-                stack[-1][1] += 1
-        else:
-            if not stack or stack[-1][0] != opening[c]:
-                return ('corrupted', penalty[c])
-            else:
-                if stack[-1][1] == 1:
-                    del stack[len(stack)-1]
-                else:
-                    stack[-1][1] -= 1
+            stack.append(c)
+        elif not stack or stack.pop() != opening[c]:
+            return ('corrupted', penalty[c])
     r = 0
-    for c, n in stack[::-1]:
-        for _ in range(n):
-            r = 5 * r + '([{<'.index(c) + 1
+    for c in stack[::-1]:
+        r = 5 * r + '([{<'.index(c) + 1
     return ('incomplete', r)
 
 
