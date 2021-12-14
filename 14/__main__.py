@@ -1,5 +1,5 @@
 import fileinput as fi
-from collections import Counter, defaultdict
+from collections import Counter
 
 inpt = fi.input()
 pattern = next(inpt).rstrip()
@@ -16,7 +16,7 @@ def stepfast(pairs, rules):
     """
     Fast version, takes and returns a counter of consecutive pairs.
     """
-    c = defaultdict(int)
+    c = Counter()
     for a, b in pairs:
         c[a + rules[a + b]] += pairs[a + b]
         c[rules[a + b] + b] += pairs[a + b]
@@ -26,7 +26,7 @@ def count(pairs):
     """
     Counts single element occurrences from a counter of consecutive pairs.
     """
-    c = defaultdict(int)
+    c = Counter()
     # Sum over the first element of each pair
     for k, v in pairs.items():
         c[k[0]] += v
