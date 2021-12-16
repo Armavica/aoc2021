@@ -37,8 +37,8 @@ class PacketParser:
         if self.readint(1):
             vals = [self.readpacket() for _ in range(self.readint(11))]
         else:
-            length = self.readint(15)
-            limit = self.pos + length
+            # addition order is important because readint modifies pos
+            limit = self.readint(15) + self.pos
             vals = []
             while self.pos < limit:
                 vals.append(self.readpacket())
