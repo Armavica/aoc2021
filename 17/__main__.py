@@ -5,6 +5,10 @@ ymin, ymax = -156, -103
 
 
 def maxy(vx, vy):
+    """
+    Returns the highest y value reached before entering the zone,
+    or None if we never enter the zone.
+    """
     maxy = 0
     x, y = 0, 0
     while y >= ymin:
@@ -17,6 +21,10 @@ def maxy(vx, vy):
 
 
 def allspeeds(xmin, xmax, ymin, ymax):
+    """
+    Iterator over all initial speeds that lead to entering the zone,
+    with the highest value of y reached before entering the zone.
+    """
     vxmin = int(math.ceil(((1 + 8 * xmin) ** 0.5 - 1) / 2)) if xmin >= 0 else xmin
     vxmax = int(math.floor((1 - (1 - 8 * xmax) ** 0.5) / 2)) if xmax < 0 else xmax
     vymin = ymin
@@ -25,8 +33,7 @@ def allspeeds(xmin, xmax, ymin, ymax):
     print(f"{vymin} <= vy <= {vymax}")
     for vx in range(vxmin, vxmax + 1):
         for vy in range(vymin, vymax + 1):
-            ytop = maxy(vx, vy)
-            if ytop is not None:
+            if (ytop := maxy(vx, vy)) is not None:
                 yield (vx, vy), ytop
 
 
