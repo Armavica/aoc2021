@@ -51,12 +51,15 @@ class Tree:
 
 
 l = 1000000
-tree = Tree(((-l, l),) * 3)
+smalltree = Tree(((-50, 50),) * 3)
+largetree = Tree(((-l, l),) * 3)
 for line in fi.input():
     onoff, xx, yy, zz = line.rstrip().split("=")
     onoff = onoff.split()[0]
     xrange = [int(x) for x in xx[:-2].split("..")]
     yrange = [int(x) for x in yy[:-2].split("..")]
     zrange = [int(x) for x in zz.split("..")]
-    tree.addbox((xrange, yrange, zrange), onoff == "on")
-print(tree.count())
+    smalltree.addbox((xrange, yrange, zrange), onoff == "on")
+    largetree.addbox((xrange, yrange, zrange), onoff == "on")
+print(smalltree.count())
+print(largetree.count())
